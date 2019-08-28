@@ -1,28 +1,17 @@
 language: julia
-sudo: false
 os:
-    - linux
-addons:
-  apt:
-    packages:
-    - libnlopt0
-    - hdf5-tools
+  - linux
+  - osx
+  - windows
 julia:
-    - 1.0
-    - 1.1
-matrix:
-    allow_failures:
+  - 1.2
+coveralls: true
 notifications:
-    email: false
-# jobs:
-#   include:
-#     - stage: "Documentation"
-#       julia: 1.1
-#       os: linux
-#       script:
-#         - julia --project=docs/ -e 'using Pkg; Pkg.instantiate()'
-#         - julia --project=docs/ docs/make.jl
-#       after_success: skip
-after_success:
-    - echo $TRAVIS_JULIA_VERSION
-    - julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Coveralls.submit(process_folder())'
+  email: false
+jobs:
+  allow_failures:
+  fast_finish: true
+  include:
+    - os: windows
+      arch: x86
+      julia: 1.2
